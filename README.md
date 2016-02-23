@@ -33,7 +33,22 @@ var url = rawgit( opts );
 ```
 
 The `function` accepts the following `options`:
+*	__slug__: public Github repository slug (*required*). The slug should include `owner` and `repo` information and should include either `commit`, `branch`, or `tag` information; e.g., `math-io/gamma`, `math-io/erf/924ab65fcb2b2a2231808ae1cecad92570902a2e`, `dstructs/array/develop`, etc.
+*	__file__: filepath (*required*). E.g., `lib/index.js`, `./README.md`, etc.
+*	__cdn__: `boolean` indicating whether to return a CDN URL. Default: `true`.
 
+By default, the `function` returns a CDN URL. To return a (non-production) URL for development or testing, set the `cdn` option to `false`.
+
+``` javascript
+var opts = {
+	'slug': 'dstructs/array/develop',
+	'file': 'lib/index.js',
+	'cdn': false
+};
+
+var url = rawgit( opts );
+// returns 'https://rawgit.com/dstructs/array/develop/lib/index.js'
+```
 
 
 ## Examples
@@ -82,15 +97,42 @@ Options:
   -h,  --help               Print this message.
   -V,  --version            Print the package version.
        --no-cdn             Return a dev/testing URL.
-       --slug slug          Github repository slug (may include branch, commit, 
-                            and/or tag info).
+       --slug slug          Github repository slug (should include branch, commit, 
+                            or tag info).
 ```
+
+
+### Notes
+
+*	If not provided a `slug`, the module attempts to resolve a `slug` from a local `.git` repository located in the current working directory. The `slug` is a combination of `remote.origin.url` and the __current__ Git hash. For example,
+
+	``` bash
+	$ git config --get remote.origin.url
+	# => https://github.com/kgryte/rawgit-url.git
+
+	$ git rev-parse HEAD
+	# => a9633f0dd2e3720dadedb965a30c999c2b0f8992
+	```
+
+	becomes
+
+	``` javascript
+	var slug = 'kgryte/rawgit-url/a9633f0dd2e3720dadedb965a30c999c2b0f8992';
+	```
 
 
 ### Examples
 
 ``` bash
-$
+$ rawgit README.md --slug 'kgryte/rawgit-url/master'
+# => https://cdn.rawgit.com/kgryte/rawgit-url/master/README.md
+```
+
+To infer a Github repository `slug` from a local `.git` repository, omit the `slug` option.
+
+``` bash
+$ rawgit docs/img/eqn.svg
+# => https://cdn.rawgit.com/math-io/erf/924ab65fcb2b2a2231808ae1cecad92570902a2e/docs/img/eqn.svg
 ```
 
 
