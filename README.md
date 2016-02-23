@@ -33,8 +33,14 @@ var url = rawgit( opts );
 ```
 
 The `function` accepts the following `options`:
-*	__slug__: public Github repository slug (*required*). The slug should include `owner` and `repo` information and should include either `commit`, `branch`, or `tag` information; e.g., `math-io/gamma`, `math-io/erf/924ab65fcb2b2a2231808ae1cecad92570902a2e`, `dstructs/array/develop`, etc.
-*	__file__: filepath (*required*). E.g., `lib/index.js`, `./README.md`, etc.
+*	__slug__: public Github repository slug (*required*). The slug should include `owner` and `repo` information and should include either `commit`, `branch`, or `tag` information. For example,
+	- `math-io/gamma`
+	- `math-io/erf/924ab65fcb2b2a2231808ae1cecad92570902a2e`
+	- `dstructs/array/develop`
+*	__file__: filepath (*required*). For example,
+	-	`lib/index.js`
+	-	`./README.md`
+	-	...etc.
 *	__cdn__: `boolean` indicating whether to return a CDN URL. Default: `true`.
 
 By default, the `function` returns a CDN URL. To return a (non-production) URL for development or testing, set the `cdn` option to `false`.
