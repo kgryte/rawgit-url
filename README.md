@@ -24,18 +24,33 @@ Returns a [RawGit][rawgit] URL for a file hosted in a public Github repository.
 
 ``` javascript
 var opts = {
-	
+	'slug': 'math-io/erf/924ab65fcb2b2a2231808ae1cecad92570902a2e',
+	'file': 'README.md'
 };
 
 var url = rawgit( opts );
-// returns ''
+// returns 'https://cdn.rawgit.com/math-io/erf/924ab65fcb2b2a2231808ae1cecad92570902a2e/README.md'
 ```
+
+The `function` accepts the following `options`:
+
 
 
 ## Examples
 
 ``` javascript
 var rawgit = require( 'rawgit-url' );
+
+var opts = {
+	'cdn': true,
+	'slug': 'kgryte/rawgit-url/a9633f0dd2e3720dadedb965a30c999c2b0f8992',
+	'file': 'README.md'
+};
+
+var url = rawgit( opts );
+
+console.log( url );
+// returns 'https://cdn.rawgit.com/kgryte/rawgit-url/a9633f0dd2e3720dadedb965a30c999c2b0f8992/README.md'
 ```
 
 To run the example code from the top-level application directory,
@@ -66,6 +81,9 @@ Options:
 
   -h,  --help               Print this message.
   -V,  --version            Print the package version.
+       --no-cdn             Return a dev/testing URL.
+       --slug slug          Github repository slug (may include branch, commit, 
+                            and/or tag info).
 ```
 
 

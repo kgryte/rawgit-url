@@ -7,6 +7,9 @@ var fs = require( 'fs' );
 var path = require( 'path' );
 var parseArgs = require( 'minimist' );
 var notifier = require( 'update-notifier' );
+var exec = require( 'child_process' ).execSync;
+var cwd = require( 'utils-cwd' );
+var wrap = require( 'utils-try-function' );
 var pkg = require( './../package.json' );
 var opts = require( './opts.json' );
 var rawgit = require( './../lib' );
@@ -16,6 +19,8 @@ var rawgit = require( './../lib' );
 
 var args;
 var url;
+var fcn;
+var tmp;
 
 
 // FUNCTIONS //
@@ -28,6 +33,43 @@ var url;
 */
 function onClose() {
 	process.exit( 0 );
+}
+
+/**
+* FUNCTION: getSlug()
+*	Attempts to derive a Github repository slug from a local repository.
+*
+* @private
+* @returns {String} repository slug
+*/
+function getSlug() {
+	var slug;
+	var opts;
+	var cmd;
+	var out;
+	var re;
+
+	opts = { 'cwd': cwd() };
+
+	// Regular expression to extract a repository slug:
+	re = /(?:.+github\.com\/)(.+)\.(?:.+)/;
+
+	// Get the remote origin:
+	cmd = 'git config --get remote.origin.url';
+	out = exec( cmd, opts );
+
+	// Extract the repository slug:
+	slug = out.toString().match( re )[ 1 ];
+
+	// Get the current Git hash:
+	cmd = 'git rev-parse HEAD';
+	out = exec( cmd, opts );
+
+	// Convert from a Buffer to a string and remove any newline characters:
+	out = out.toString();
+	out = out.match( /(.+)/ )[ 1 ];
+
+	return slug+'/'+out;
 }
 
 
@@ -67,6 +109,25 @@ if ( args.version ) {
 // OPTIONS //
 
 opts = {};
+
+// Remove any leading `./`:
+opts.file = args._[ 0 ].replace( /^\.\//, '' );
+
+if ( args.cdn === false ) {
+	opts.cdn = args.cdn;
+}
+if ( args.slug ) {
+	opts.slug = args.slug;
+} else {
+	fcn = wrap( getSlug );
+	tmp = fcn();
+	if ( tmp instanceof Error ) {
+		process.stderr.write( '\nError encountered while generating a RawGit URL. If no slug is provided, ensure that the current working directory is a Git repository.\n\n', 'utf8' );
+		process.stderr.write( tmp.stack+'\n', 'utf8' );
+		return process.exit( 1 );
+	}
+	opts.slug = tmp;
+}
 
 
 // RAWGIT URL //

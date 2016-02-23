@@ -1,8 +1,11 @@
 {
-	"string": [],
+	"string": [
+		"slug"
+	],
 	"boolean": [
 		"help",
-		"version"
+		"version",
+		"no-cdn"
 	],
 	"alias": {
 		"help": [

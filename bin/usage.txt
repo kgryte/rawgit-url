@@ -5,4 +5,7 @@ Options:
 
   -h,  --help               Print this message.
   -V,  --version            Print the package version.
+       --no-cdn             Return a dev/testing URL.
+       --slug slug          Github repository slug (may include branch, commit, 
+                            and/or tag info).
 
