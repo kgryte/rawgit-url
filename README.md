@@ -60,7 +60,12 @@ $ npm install -g rawgit-url
 ### Usage
 
 ``` bash
+Usage: rawgit [options] file
 
+Options:
+
+  -h,  --help               Print this message.
+  -V,  --version            Print the package version.
 ```
 
 
