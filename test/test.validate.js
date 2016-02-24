@@ -80,7 +80,7 @@ tape( 'if provided a `file` option which is not an string primitive, the functio
 
 	for ( i = 0; i < values.length; i++ ) {
 		err = validate( {}, {
-			'slug': 'kgryte/utils-copy',
+			'slug': 'kgryte/utils-copy/master',
 			'file': values[ i ]
 		});
 		t.ok( err instanceof TypeError, 'returns a type error when provided ' + values[i] );
@@ -102,7 +102,7 @@ tape( 'a `file` option is required', function test( t ) {
 	var err;
 
 	err = validate( {}, {
-		'slug': 'kgryte/utils-merge'
+		'slug': 'kgryte/utils-merge/master'
 	});
 	t.ok( err instanceof TypeError, 'returns a type error' );
 	t.end();
@@ -126,7 +126,7 @@ tape( 'if provided a `cdn` option which is not a boolean primitive, the function
 
 	for ( i = 0; i < values.length; i++ ) {
 		err = validate( {}, {
-			'slug': 'kgryte/utils-deep-get',
+			'slug': 'kgryte/utils-deep-get/master',
 			'file': 'README.md',
 			'cdn': values[ i ]
 		});
@@ -141,12 +141,12 @@ tape( 'the function returns `null` if all options are valid', function test( t )
 
 	obj = {};
 	err = validate( obj, {
-		'slug': 'kgryte/utils-deep-set',
+		'slug': 'kgryte/utils-deep-set/master',
 		'file': 'lib/index.js',
 		'cdn': false
 	});
 	t.equal( err, null, 'returns null' );
-	t.equal( obj.slug, 'kgryte/utils-deep-set', 'sets slug option' );
+	t.equal( obj.slug, 'kgryte/utils-deep-set/master', 'sets slug option' );
 	t.equal( obj.file, 'lib/index.js', 'sets file option' );
 	t.equal( obj.cdn, false, 'sets cdn option' );
 
@@ -159,7 +159,7 @@ tape( 'the function ignores unrecognized options', function test( t ) {
 
 	obj = {};
 	err = validate( obj, {
-		'slug': 'kgryte/utils-deep-set',
+		'slug': 'kgryte/utils-deep-set/master',
 		'file': 'lib/index.js',
 		'beep': 'boop',
 		'a': {'b':'c'}
