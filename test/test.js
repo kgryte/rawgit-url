@@ -80,6 +80,26 @@ tape( 'the function throws an error if provided an invalid option', function tes
 	}
 });
 
+tape( 'the function throws an error if not provided a repository slug', function test( t ) {
+	t.throws( foo, TypeError, 'throws error' );
+	t.end();
+	function foo() {
+		var opts = setup();
+		delete opts.slug;
+		rawgit( opts );
+	}
+});
+
+tape( 'the function throws an error if not provided a file path', function test( t ) {
+	t.throws( foo, TypeError, 'throws error' );
+	t.end();
+	function foo() {
+		var opts = setup();
+		delete opts.file;
+		rawgit( opts );
+	}
+});
+
 tape( 'the function returns a RawGit URL (cdn)', function test( t ) {
 	var expected;
 	var actual;
