@@ -1,6 +1,6 @@
 {
   "name": "rawgit-url",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Get a RawGit URL for a file hosted in a public Github repository.",
   "author": {
     "name": "Athan Reines",
