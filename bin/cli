@@ -110,8 +110,7 @@ if ( args.version ) {
 
 opts = {};
 
-// Remove any leading `./`:
-opts.file = args._[ 0 ].replace( /^\.\//, '' );
+opts.file = args._[ 0 ];
 
 if ( args.cdn === false ) {
 	opts.cdn = args.cdn;
